@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block body %}
+	<h1> Lista de Categorias </h1>
+
+	{% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-danger">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+    {% if categorias %}
+	<table class="table">
+		<thead>
+			
+			<tr>
+				
+				<th> Categorias </th>
+				<th> Descrição</th>
+
+
+			</tr>
+		</thead>
+
+		<tbody>
+			
+			{% for c in categorias %}
+				<tr>
+					<td>{{ c.nome }}</td>
+					<td>{{ c.descricao }}</td>
+					<td> <a href="{% url 'tarefas:editar_categoria' c.id %}" class="btn btn-info btn-xs"> Editar </a> </td>
+					<td> <a href="{% url 'tarefas:delete_categoria' c.id %}" class="btn btn-danger btn" > Excluir </a> </td>
+
+				</tr>
+				
+
+			{% endfor %}
+
+
+		</tbody>
+
+
+
+
+	</table>
+	 {% else %}
+    <div class="alert alert-info">
+      <p>Não há nenhuma categoria cadastrada!</p>
+    </div>
+  {% endif %}
+
+
+	<a role="button" class=" btn btn-primary" href="{% url 'tarefas:nova_categoria' %}" class="btn"> Adcionar Categoria  </a>
+
+{% endblock body %}

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block body %}
+	
+		<h1> Lista de Tarefas</h1>
+		
+
+		{% if messages %}
+        	{% for message in messages %}
+        		<div class="alert alert-danger">
+        			{{ message }}
+
+        		</div>
+       
+            {% endfor %}
+		    {% endif %}
+
+
+
+		{% if tarefas %} 
+		<table class="table">
+			<thead>
+				<tr>
+					<th> Tarefas  </th>
+					<th> Descrição  </th>
+					<th> Data Final  </th>
+					<th> Prioridade  </th>
+					<th> Categoria  </th>
+					<th colspan="2" style="text-align: center"> Ações  </th>
+				</tr>
+
+
+			</thead>
+
+			<tbody>
+				{% for t in tarefas %}
+					<tr>
+						<td> {{ t.nome }} </td>
+						<td> {{ t.descricao }} </td>
+						<td> {{ t.data_final }} </td>
+						<td> {{ t.get_prioridade_display}} </td>
+						<td> {{ t.categoria }} </td>
+						<td> <a href="{% url 'tarefas:editar_tarefa' t.id %}" class="btn btn-info btn-xs"> Editar </a> </td>
+						<td> <a href="{% url 'tarefas:delete_tarefa' t.id %}" class="btn btn-danger btn" > Excluir </a> </td>
+
+					</tr>
+					{% endfor %}
+
+			</tbody>
+
+
+		</table>
+		{% else %}
+		
+			<div class="alert alert-info">
+				
+				<p> Não há tarefas disponíveis </p>
+
+			</div>
+			
+
+		{% endif %}
+
+
+		<a role="button" class=" btn btn-primary" href="{% url 'tarefas:nova_tarefa' %}" class="btn"> Adcionar Tarefa </a>
+
+
+
+	
+		
+		
+	{% endblock body %}
